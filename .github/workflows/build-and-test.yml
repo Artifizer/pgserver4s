@@ -52,7 +52,7 @@ jobs:
         with:
           path: |
             pgbuild
-            src/pgserver/pginstall
+            src/pgserver4s/pginstall
           key: ${{ runner.os }}-${{ runner.arch }}-build-${{ env.cache-name }}-${{
             hashFiles('Makefile', 'pgbuild/Makefile', '.github/workflows/build-and-test.yml') }}
       - name: Build postgres and pgvector
@@ -71,7 +71,7 @@ jobs:
         with:
           path: |
            pgbuild
-           src/pgserver/pginstall
+           src/pgserver4s/pginstall
           key: ${{ runner.os }}-${{ runner.arch }}-build-${{ env.cache-name }}-${{
             hashFiles('Makefile', 'pgbuild/Makefile', '.github/workflows/build-and-test.yml') }}
       - name: Build wheels
@@ -89,7 +89,7 @@ jobs:
         with:
           path: |
            pgbuild
-           src/pgserver/pginstall
+           src/pgserver4s/pginstall
           key: ${{ runner.os }}-${{ runner.arch }}-build-${{ env.cache-name }}-${{
             hashFiles('Makefile', 'pgbuild/Makefile', '.github/workflows/build-and-test.yml') }}
       - uses: actions/upload-artifact@v3
@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/pgserver  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/pgserver4s  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:

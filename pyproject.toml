@@ -1,13 +1,13 @@
 [project]
-name = "pgserver" # Required
-version = "0.1.4"  # Required
+name = "pgserver4s" # Required
+version = "0.1.0"  # Required
 description = "Self-contained postgres server for your python applications" # Required
 readme = "README.md" # Optional
 requires-python = ">=3.9"
 license = {file = "LICENSE.txt"}
-urls={repository="https://github.com/orm011/pgserver"}
-authors=[{ name="Oscar Moll", email="orm@csail.mit.edu" }]
-keywords=["postgresql", "pgvector", "pgserver", "rag"]
+urls={repository="https://github.com/Artifizer/pgserver4s"}
+authors=[{ name="Artifizer", email="artifizer@gmail.com" }]
+keywords=["postgresql", "pgvector", "pgserver4s", "pg_trgm", "rag"]
 dependencies = [
     "fasteners>=0.19",
     "platformdirs>=4.0.0",
@@ -27,7 +27,7 @@ test = [
 
 [tool.setuptools.packages.find]
 where = ["src"]  # list of folders that contain the packages (["."] by default)
-include = ["pgserver*"]  # package names should match these glob patterns (["*"] by default)
+include = ["pgserver4s*"]  # package names should match these glob patterns (["*"] by default)
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

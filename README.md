@@ -12,7 +12,7 @@
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/orm011/pgserver/main/pgserver_square_small.png"/>
+  <img src="https://raw.githubusercontent.com/Artifizer/pgserver4s/main/pgserver4s.png"/>
 </p>
 
 # pgserver4s: pip-installable, embedded postgres server + pgvector extension for your python app

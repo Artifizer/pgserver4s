@@ -6,7 +6,7 @@ BUILD := $(shell pwd)/pgbuild/
 all: pgvector postgres
 
 ### postgres
-POSTGRES_VERSION := 16.2
+POSTGRES_VERSION := 17.5
 POSTGRES_URL := https://ftp.postgresql.org/pub/source/v$(POSTGRES_VERSION)/postgresql-$(POSTGRES_VERSION).tar.gz
 POSTGRES_SRC := postgresql-$(POSTGRES_VERSION)
 POSTGRES_BLD := $(POSTGRES_SRC)

@@ -1,5 +1,5 @@
 ![Python Version](https://img.shields.io/badge/python-3.9%2C%203.10%2C%203.11%2C%203.12-blue)
-![Postgres Version](https://img.shields.io/badge/PostgreSQL-16.2-blue)
+![Postgres Version](https://img.shields.io/badge/PostgreSQL-17.5-blue)
 
 ![Linux Support](https://img.shields.io/badge/Linux%20Support-manylinux-green)
 ![macOS Apple Silicon Support >=11](https://img.shields.io/badge/macOS%20Apple%20Silicon%20Support-%E2%89%A511(BigSur)-green)

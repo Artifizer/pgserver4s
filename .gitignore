@@ -133,5 +133,6 @@ dmypy.json
 .idea
 
 build/
-pgbuild/
+pgbuild/pgvector*
+pgbuild/postgres*
 src/pgserver4s/pginstall

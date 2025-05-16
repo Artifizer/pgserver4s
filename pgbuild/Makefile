@@ -3,7 +3,7 @@ INSTALL_PREFIX := $(shell pwd)/../src/pgserver4s/pginstall/
 BUILD := $(shell pwd)/pgbuild/
 
 .PHONY: all
-all: pgvector postgres
+all: pgvector postgres pg_trgm
 
 ### postgres
 POSTGRES_VERSION := 17.5
@@ -34,6 +34,15 @@ $(POSTGRES_BLD)/src/bin/initdb/initdb: $(POSTGRES_BLD)/config.status
 $(INSTALL_PREFIX)/bin/postgres: $(POSTGRES_BLD)/config.status
 	mkdir -p $(INSTALL_PREFIX)
 	unset MAKELEVEL && unset MAKEFLAGS && unset MFLAGS && $(MAKE) -C $(POSTGRES_BLD) install
+
+## Build and install pg_trgm extension
+$(INSTALL_PREFIX)/lib/postgresql/pg_trgm.so: $(INSTALL_PREFIX)/bin/postgres
+	unset MAKELEVEL && unset MAKEFLAGS && unset MFLAGS \
+		&& $(MAKE) -C $(POSTGRES_BLD)/contrib/pg_trgm -j \
+		&& $(MAKE) -C $(POSTGRES_BLD)/contrib/pg_trgm install
+
+.PHONY: pg_trgm
+pg_trgm: $(INSTALL_PREFIX)/lib/postgresql/pg_trgm.so
 
 .PHONY: postgres
 postgres: $(INSTALL_PREFIX)/bin/postgres

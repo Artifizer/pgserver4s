@@ -17,14 +17,20 @@
 
 # pgserver4s: pip-installable, embedded postgres server + pgvector extension for your python app
 
+> Based on [orm011/pgserver](https://github.com/orm011/pgserver) but with semantic and full-text search extensions.
+
 `pgserver4s` lets you build Postgres-backed python apps with the same convenience afforded by an embedded database (ie, alternatives such as sqlite).
 If you build your app with pgserver4s, your app remains wholly pip-installable, saving your users from needing to understand how to setup a postgres server (they simply pip install your app, and postgres is brought in through dependencies), and letting you get started developing quickly: just `pip install pgserver4s` and `pgserver4s.get_server(...)`, as shown in this notebook: <a target="_blank" href="https://colab.research.google.com/github/orm011/pgserver/blob/master/pgserver-example.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>
 
 To achieve this, you need two things which `pgserver4s` provides
   * python binary wheels for multiple-plaforms with postgres binaries
   * convenience python methods that handle db initialization and server process management, that deals with things that would normally prevent you from running your python app seamlessly on environments like docker containers, a machine you have no root access in, machines with other running postgres servers, google colab, etc.  One main goal of the project is robustness around this.
+  * semantic and full-text search extensions
 
-Additionally, this package includes the [pgvector](https://github.com/pgvector/pgvector) postgres extension, useful for storing associated vector data and for vector similarity queries.
+The following extensions are built into the Postgres server:
+- [pgvector](https://github.com/pgvector/pgvector) - vector data and for vector similarity queries.
+- [pg_trgm](https://www.postgresql.org/docs/current/pgtrgm.html) - trigram similarity queries.
+- [auto_explain](https://www.postgresql.org/docs/current/auto-explain.html) - auto explain slow queries.
 
 ## Basic summary:
 * _Pip installable binaries_: built and tested on Manylinux, MacOS and Windows.

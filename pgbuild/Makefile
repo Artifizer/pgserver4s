@@ -3,7 +3,7 @@ INSTALL_PREFIX := $(shell pwd)/../src/pgserver4s/pginstall/
 BUILD := $(shell pwd)/pgbuild/
 
 .PHONY: all
-all: pgvector postgres pg_trgm
+all: pgvector postgres pg_trgm auto_explain
 
 ### postgres
 POSTGRES_VERSION := 17.5
@@ -69,6 +69,15 @@ $(INSTALL_PREFIX)/lib/vector.so: $(PGVECTOR_DIR)/Makefile $(INSTALL_PREFIX)/bin/
 
 .PHONY: pgvector
 pgvector: postgres $(INSTALL_PREFIX)/lib/vector.so
+
+### auto_explain extension
+$(INSTALL_PREFIX)/lib/postgresql/auto_explain.so: $(INSTALL_PREFIX)/bin/postgres
+	unset MAKELEVEL && unset MAKEFLAGS && unset MFLAGS \
+		&& $(MAKE) -C $(POSTGRES_BLD)/contrib/auto_explain -j \
+		&& $(MAKE) -C $(POSTGRES_BLD)/contrib/auto_explain install
+
+.PHONY: auto_explain
+auto_explain: $(INSTALL_PREFIX)/lib/postgresql/auto_explain.so
 
 ### other
 .PHONY: clean clean-all

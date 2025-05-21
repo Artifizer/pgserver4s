@@ -195,6 +195,10 @@ class PostgresServer:
                 _logger.info(f'not ready yet... waiting a bit more...')
                 time.sleep(1.)
 
+            # Enable and configure auto_explain extension
+            # _logger.info(f'Enabling auto_explain extension')
+            # self._enable_auto_explain()
+
         _logger.info(f"Now asserting server is running {self._postmaster_info=}")
         assert self._postmaster_info is not None
         assert self._postmaster_info.is_running()
@@ -256,6 +260,36 @@ class PostgresServer:
         self._count -= 1
         if self._count <= 0:
             self._cleanup()
+
+    def _enable_auto_explain(self) -> None:
+        """Enable and configure the auto_explain extension.
+
+        This loads the auto_explain extension and configures it to log execution plans
+        for slow queries automatically.
+        """
+        try:
+            # Load the auto_explain extension
+            self.psql("""
+                -- Load the auto_explain extension
+                CREATE EXTENSION IF NOT EXISTS auto_explain;
+
+                -- Configure auto_explain parameters
+                ALTER SYSTEM SET auto_explain.log_min_duration = '100ms';  -- Log queries taking more than 100ms
+                ALTER SYSTEM SET auto_explain.log_analyze = 'on';         -- Include EXPLAIN ANALYZE output
+                ALTER SYSTEM SET auto_explain.log_buffers = 'on';        -- Include buffer usage
+                ALTER SYSTEM SET auto_explain.log_timing = 'on';         -- Include timing information
+                ALTER SYSTEM SET auto_explain.log_verbose = 'on';        -- Use verbose output
+                ALTER SYSTEM SET auto_explain.log_nested_statements = 'on'; -- Include nested statements
+
+                -- Load the extension in the current session
+                LOAD 'auto_explain';
+
+                -- Reload the configuration
+                SELECT pg_reload_conf();
+            """)
+            _logger.info("Successfully enabled and configured auto_explain extension")
+        except Exception as e:
+            _logger.error(f"Failed to enable auto_explain extension: {e}")
 
     def cleanup(self) -> None:
         """ Stops the postgresql server and removes the pgdata directory.
